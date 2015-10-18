@@ -38,7 +38,7 @@ module.exports = {
         })
     },
     findNGOsByArOfInst: function (interest, callback) {
-        var regex = new RegExp(".*" + interest + ".*")
+        var regex = new RegExp(".*" + interest + ".*");
         NGODetails.find({
             "areaOfFocus.areasOfIntrest": {
                 $regex: regex,
@@ -74,5 +74,5 @@ module.exports = {
                 return console.error(err);
             callback(ngoDetailList);
         })
-    },
-}
+    }
+};
