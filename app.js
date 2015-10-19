@@ -11,6 +11,9 @@ var passport = require('passport');
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
 var app = express();
 
 // view engine setup

@@ -1,4 +1,4 @@
-var NGODetails = require('./model');
+var NGODetails = require('./models/model');
 module.exports = {
     findAllNGOs: function (callback) {
         NGODetails.find({}, function (err, ngoDetailList) {
@@ -7,6 +7,15 @@ module.exports = {
             callback(ngoDetailList);
         });
     },
+
+    findAllNGObyId: function (id, callback) {
+        NGODetails.findById(id, function (err, ngoDetail) {
+            if (err)
+                return console.error(err);
+            callback(ngoDetail);
+        });
+    },
+
     findNGOsByStateAndDist: function (state, dist, callback) {
         NGODetails.find({"address.state": state, "address.dist": dist}, function (err, ngoDetailList) {
             if (err)
@@ -14,6 +23,7 @@ module.exports = {
             callback(ngoDetailList);
         })
     },
+
 
     findDistOfState: function (state, callback) {
         var distList = [];
