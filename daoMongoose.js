@@ -16,6 +16,35 @@ module.exports = {
         });
     },
 
+    findNGOsByState: function (state, callback) {
+        NGODetails.find({"address.state": state}, function (err, ngoDetailList) {
+            if (err)
+                return console.error(err);
+            callback(ngoDetailList);
+        })
+    },
+
+    findDistOfState: function (state, callback) {
+        //var distList = [];
+        var distList = {
+            state: String,
+            distList: []
+        }
+        NGODetails.find({"address.state": state}, function (err, ngoDetailList) {
+            if (err)
+                return console.error(err);
+            distList.state = state
+            for (var key in ngoDetailList) {
+                if (ngoDetailList.hasOwnProperty(key)) {
+                    var ngo = ngoDetailList[key];
+                    distList.distList.push(ngo.address.dist);
+                }
+            }
+            callback(distList);
+
+        })
+    },
+
     findNGOsByStateAndDist: function (state, dist, callback) {
         NGODetails.find({"address.state": state, "address.dist": dist}, function (err, ngoDetailList) {
             if (err)
@@ -25,21 +54,6 @@ module.exports = {
     },
 
 
-    findDistOfState: function (state, callback) {
-        var distList = [];
-        NGODetails.find({"address.state": state}, function (err, ngoDetailList) {
-            if (err)
-                return console.error(err);
-            for (var key in ngoDetailList) {
-                if (ngoDetailList.hasOwnProperty(key)) {
-                    var ngo = ngoDetailList[key];
-                    distList.push(ngo.address.dist);
-                }
-            }
-            callback(distList);
-
-        })
-    },
     findNGOsByAffliation: function (affliation, callback) {
         NGODetails.find({"orgType": affliation}, function (err, ngoDetailList) {
             if (err)
@@ -74,6 +88,7 @@ module.exports = {
         })
     },
     findNGOsByPin: function (pin, callback) {
+        var regex = new RegExp(".*" + pin + ".*");
         NGODetails.find({
             "address.pin": {
                 $regex: regex,

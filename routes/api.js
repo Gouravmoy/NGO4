@@ -26,12 +26,12 @@ router.route('/ngos')
     .get(function (req, res) {
         daoMongoose.findAllNGOs(function (list) {
             //this is more accurate
-            for (var key in list) {
-                if (list.hasOwnProperty(key)) {
-                    var ngo = list[key];
-                    console.log(ngo.name);
-                }
-            }
+            /*for (var key in list) {
+             if (list.hasOwnProperty(key)) {
+             var ngo = list[key];
+             console.log(ngo.name);
+             }
+             }*/
             return res.send(list);
         });
 
@@ -44,4 +44,62 @@ router.route('/ngos/:id')
             return res.send(ngoDetail);
         });
     });
+
+
+router.route('/ngos/query/state/:state')
+
+    .get(function (req, res) {
+        daoMongoose.findNGOsByState(req.params.state, function (ngoDetail) {
+            return res.send(ngoDetail);
+        });
+    });
+
+router.route('/ngos/query/state/:state/dist/:dist')
+
+    .get(function (req, res) {
+        daoMongoose.findNGOsByStateAndDist(req.params.state, req.params.dist, function (ngoDetail) {
+            return res.send(ngoDetail);
+        });
+    });
+
+router.route('/ngos/query/state/pin/:pin')
+
+    .get(function (req, res) {
+        daoMongoose.findNGOsByPin(req.params.pin, function (ngoDetail) {
+            return res.send(ngoDetail);
+        });
+    });
+
+router.route('/ngos/query/state/dist/:state')
+
+    .get(function (req, res) {
+        daoMongoose.findDistOfState(req.params.state, function (ngoDetail) {
+            return res.send(ngoDetail);
+        });
+    });
+
+router.route('/ngos/query/org/:org')
+
+    .get(function (req, res) {
+        daoMongoose.findNGOsByAffliation(req.params.org, function (ngoDetail) {
+            return res.send(ngoDetail);
+        });
+    });
+
+router.route('/ngos/query/areaOfInst/:intrest')
+
+    .get(function (req, res) {
+        daoMongoose.findNGOsByArOfInst(req.params.intrest, function (ngoDetail) {
+            return res.send(ngoDetail);
+        });
+    });
+
+router.route('/ngos/query/name/:name')
+
+    .get(function (req, res) {
+        daoMongoose.findNGOsByName(req.params.name, function (ngoDetail) {
+            return res.send(ngoDetail);
+        });
+    });
+
 module.exports = router;
