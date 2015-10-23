@@ -13,7 +13,7 @@ var authenticate = require('./routes/authenticate')(passport);
 
 var mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost/test');
-mongoose.connect('mongodb://ngo-app:Tao.fjQ_wxKc6nENKnMgUjkor2sC18kQyf.JF.09X6Y-@ds040888.mongolab.com:40888/ngo-app');
+mongoose.connect('mongodb://localhost/test');
 
 var app = express();
 
